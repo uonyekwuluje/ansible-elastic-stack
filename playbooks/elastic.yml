@@ -1,5 +1,0 @@
----
-- import_playbook: hostsfile.yml
-- import_playbook: kibana.yml
-- import_playbook: elasticsearch.yml
-#- import_playbook: test_nodes.yml

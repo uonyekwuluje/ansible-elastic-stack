@@ -1,9 +1,0 @@
----
-elasticsearch_user:
-  - username: elasticsearch
-    user_group: elasticsearch
-    gekos: "Elasticsearch User"
-    user_home: "/home/elasticsearch"
-    user_shell: "/bin/bash"
-    use_sudo: true
-    user_groups: "elasticsearch"

@@ -1,13 +1,26 @@
 ---
 - name: Elasticsearch | Install elasticsearch
   yum:
-     name: "{{ elasticsearch_url }}"
+     name: "{{ elasticsearch_rpm_url }}"
      state: present
+  when:
+  - ansible_os_family == 'RedHat'
 
+- name: Elasticsearch | Install elasticsearch
+  apt:
+     deb: "{{ elasticsearch_deb_url }}"
+     state: present
+  when:
+  - ansible_os_family == 'Debian'
+
+- name: Elasticsearch | Enable elasticsearch service
+  systemd:
+     name: elasticsearch
+     enabled: yes
 
 - name: Elasticsearch | Update elasticsearch config
   template:
-    src="elasticsearch.yml.erb"
+    src="elasticsearch.yml.j2"
     dest="/etc/elasticsearch/elasticsearch.yml"
   register: elasticsearch_service
 
@@ -16,7 +29,6 @@
     src: "jvm.options"
     dest: "/etc/elasticsearch/jvm.options"
   register: elasticsearch_service_jvm
-
 
 - name: Update | Update /etc/security/limits.conf 
   lineinfile: 
@@ -33,7 +45,10 @@
     dest: "/etc/sysctl.conf"
     line: '{{ item }}'
   with_items:
-    - 'vm.max_map_count=262144'
+    - 'vm.max_map_count = 262144'
+    - 'net.ipv6.conf.all.disable_ipv6 = 1'
+    - 'net.ipv6.conf.default.disable_ipv6 = 1'
+    - 'net.ipv6.conf.lo.disable_ipv6 = 1'
 
 - name: Elasticsearch | Restart elasticsearch
   systemd:

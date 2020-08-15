@@ -5,7 +5,6 @@
   become: yes
   become_user: root
   become_method: sudo
-  remote_user: ec2-user
   tasks:
   - name: Update the /etc/hosts file with node name
     become: yes
@@ -19,3 +18,32 @@
     register: etchostsupdate
     when: ansible_hostname != item or ansible_hostname == item
     with_items: "{{groups['elasticstack']}}"
+
+- name: Configure Elasticsearch Nodes
+  hosts: elasticnodes
+  gather_facts: true
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+  - role: common
+  - role: elasticsearch
+
+- name: Install Kibana Server
+  hosts: kibana
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+  - role: common
+  - role: kibana
+
+#- name: Configure Test Servers
+#  hosts: testnodes
+#  gather_facts: true
+#  become: yes
+#  become_user: root
+#  become_method: sudo
+#  roles:
+#  - role: common
+#  - role: filebeats

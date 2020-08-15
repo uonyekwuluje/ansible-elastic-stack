@@ -1,0 +1,13 @@
+---
+# Provision Users
+- import_tasks: rhel_requirements.yml
+  when:
+  - ansible_os_family == 'RedHat'
+
+- import_tasks: debian_requirements.yml
+  when:
+  - ansible_os_family == 'Debian'
+
+- name: Update hostname to myserver
+  hostname:
+    name: "{{ inventory_hostname | lower }}"
