@@ -1,0 +1,13 @@
+cluster.name: {{ cluster_name }}
+node.name: {{ inventory_hostname }}
+node.master: true
+node.data: true
+node.ingest: true
+search.remote.connect: true
+network.host: 0.0.0.0
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+#xpack.security.enabled: true
+# We have 3 Master Nodes [(3 / 2) + 1] for Quorum
+discovery.seed_hosts: {{ elastic_stack_cluster | to_yaml }}
+cluster.initial_master_nodes: {{ elastic_eligible_masters | to_yaml }}

@@ -1,0 +1,21 @@
+---
+- name: Be sure firewalld is disabled
+  systemd: 
+    name: firewalld 
+    enabled: no
+  ignore_errors: yes
+
+
+- name: Be sure firewalld is stopped
+  systemd: 
+    name: firewalld 
+    state: stopped
+  ignore_errors: yes
+
+
+- name: Disable Selinux
+  selinux:
+    policy: targeted
+    state: disabled
+  ignore_errors: yes
+

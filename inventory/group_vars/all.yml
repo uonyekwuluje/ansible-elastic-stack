@@ -1,0 +1,13 @@
+---
+epel_repo_url: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+epel_repo_gpg_key_url: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
+epel_repofile_path: "/etc/yum.repos.d/epel.repo"
+
+elastic_version: "7.6.1"
+elasticsearch_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elastic_version }}-x86_64.rpm"
+kibana_url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ elastic_version }}-x86_64.rpm"
+file_beat_url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{ elastic_version }}-x86_64.rpm"
+cluster_name: "labs-cls1"
+elastic_stack_cluster: ['kibanaserver', 'elasticnode-1', 'elasticnode-2', 'elasticnode-3']
+elastic_eligible_masters: ['elasticnode-1', 'elasticnode-2', 'elasticnode-3']
+kibana_server_address: "kibanaserver"

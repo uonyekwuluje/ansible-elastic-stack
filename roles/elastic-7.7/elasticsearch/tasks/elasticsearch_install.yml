@@ -1,0 +1,43 @@
+---
+- name: Elasticsearch | Install elasticsearch
+  yum:
+     name: "{{ elasticsearch_url }}"
+     state: present
+
+
+- name: Elasticsearch | Update elasticsearch config
+  template:
+    src="elasticsearch.yml.erb"
+    dest="/etc/elasticsearch/elasticsearch.yml"
+  register: elasticsearch_service
+
+- name: Elasticsearch | Update jvm config
+  copy:
+    src: "jvm.options"
+    dest: "/etc/elasticsearch/jvm.options"
+  register: elasticsearch_service_jvm
+
+
+- name: Update | Update /etc/security/limits.conf 
+  lineinfile: 
+    dest: "/etc/security/limits.conf"
+    line: '{{ item }}'
+  with_items:
+    - 'elasticsearch soft nofile 65536'
+    - 'elasticsearch hard nofile 65536'
+    - 'elasticsearch soft memlock unlimited' 
+    - 'elasticsearch hard memlock unlimited'
+
+- name: Update | Update /etc/sysctl.conf 
+  lineinfile:
+    dest: "/etc/sysctl.conf"
+    line: '{{ item }}'
+  with_items:
+    - 'vm.max_map_count=262144'
+
+- name: Elasticsearch | Restart elasticsearch
+  systemd:
+     name: elasticsearch
+     state: restarted
+     daemon_reload: yes
+  when: elasticsearch_service.changed 

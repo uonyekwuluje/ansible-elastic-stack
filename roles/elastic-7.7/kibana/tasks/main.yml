@@ -1,0 +1,2 @@
+---
+- import_tasks: kibana_install.yml

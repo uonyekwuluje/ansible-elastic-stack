@@ -1,0 +1,12 @@
+cluster.name: {{ cluster_name }}
+node.name: {{ inventory_hostname }}
+node.master: false
+node.data: false
+node.ingest: false
+search.remote.connect: false
+network.host: 0.0.0.0
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+#xpack.security.enabled: true
+discovery.seed_hosts: {{ elastic_stack_cluster | to_yaml }}
+cluster.initial_master_nodes: {{ elastic_eligible_masters | to_yaml }}
