@@ -18,13 +18,30 @@ This Ansible Repo installs Elasticsearch, Kibana and FileBeats. More to Come
 * Update inventory/hosts.ini with the server names
 * Update ansible_users in ansible.cfg. Ensure this user has sudo privilleges
 
+### Server Inventory
+|Server Name  |  Ip Address |
+|-------------|-------------|
+|kibanaserver |  10.0.0.4   |
+|elknode-01   |  10.0.1.4   |
+|elknode-02   |  10.0.1.5   |
+|elknode-03   |  10.0.1.6   |
+|testnode-01  |  10.0.1.7   |
+|testnode-02  |  10.0.1.8   |
+
+
 ### Setup
 ```
 ansible -m ping elasticstack -o
 ansible-playbook site.yml
 ```
+### Rest Web UI
+Open your browser and type
+```
+http://<kibana public ip>:5601
+```
+***note: The default as is is not secure. For production use, enable xpack, configured SSL and handle requests securely***
 
-### Test
+### Test CML
 Loginto one of the nodes and run the following commands to test
 ```
 curl -XGET http://localhost:9200
