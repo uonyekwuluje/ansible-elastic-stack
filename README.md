@@ -29,11 +29,18 @@ This Ansible Repo installs Elasticsearch, Kibana and FileBeats. More to Come
 |testnode-02  |  10.0.1.8   |
 
 
-### Setup
+### Setup Multi Node
 ```
 ansible -m ping elasticstack -o
-ansible-playbook site.yml
+ansible-playbook elkmulti-node.yml
 ```
+
+### Setup Single Node
+```
+ansible -m ping elksingle -o
+ansible-playbook elksingle-node.yml
+```
+
 ### Rest Web UI
 Open your browser and type
 ```

@@ -1,0 +1,9 @@
+---
+- name: Install Elasticsearch & Kibana Single Node Server
+  hosts: elksingle
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+  - role: common
+  - role: elknode
