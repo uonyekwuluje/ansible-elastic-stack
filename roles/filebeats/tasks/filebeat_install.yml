@@ -1,8 +1,17 @@
 ---
 - name: Filebeat | Install Filebeat
   yum:
-     name: "{{ file_beat_url }}"
+     name: "{{ filebeat_rpm_url }}"
      state: present
+  when:
+  - ansible_os_family == 'RedHat'
+
+- name: Filebeat | Install Filebeat
+  apt:
+     deb: "{{ filebeat_deb_url }}"
+     state: present
+  when:
+  - ansible_os_family == 'Debian'
 
 - name: Filebeat | Enable filebeat service
   systemd:
@@ -10,13 +19,11 @@
      state: started
      enabled: yes
 
-
 - name: Filebeat | Update filebeat config
   template:
-    src="filebeat.yml.erb"
-    dest="/etc/filebeat/filebeat.yml"
+    src: "filebeat.yml.j2"
+    dest: "/etc/filebeat/filebeat.yml"
   register: filebeat_service
-
 
 - name: Filebeat | Restart filebeat if config changes
   systemd:

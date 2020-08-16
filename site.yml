@@ -38,12 +38,12 @@
   - role: common
   - role: kibana
 
-#- name: Configure Test Servers
-#  hosts: testnodes
-#  gather_facts: true
-#  become: yes
-#  become_user: root
-#  become_method: sudo
-#  roles:
-#  - role: common
-#  - role: filebeats
+- name: Configure Filebeat Test Nodes
+  hosts: testnodes
+  gather_facts: true
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+  - role: common
+  - role: filebeats

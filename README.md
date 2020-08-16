@@ -1,30 +1,30 @@
-### Ansible Elastic Stack
+# Ansible Elastic Stack
 This Ansible Repo installs Elasticsearch, Kibana and FileBeats. More to Come
 
-# Supported Distributions
+### Supported Distributions
 * Ubuntu 18 LTS
 * CentOS 7
 
-# Network Requirements
+### Network Requirements
 * Ports 9200, 9300 and 5601 needs to be open
 * SSH and ICMP needs to be open
 
-# Instance Requirements
+### Instance Requirements
 * One Server for Kibana
 * Thress Servers for Elasticsearch
 
-# Setup Instructions
+### Setup Instructions
 * Ensure you have ansible installed
 * Update inventory/hosts.ini with the server names
 * Update ansible_users in ansible.cfg. Ensure this user has sudo privilleges
 
-# Setup
+### Setup
 ```
 ansible -m ping elasticstack -o
 ansible-playbook site.yml
 ```
 
-# Test
+### Test
 Loginto one of the nodes and run the following commands to test
 ```
 curl -XGET http://localhost:9200
@@ -38,7 +38,7 @@ curl -XGET http://localhost:9200/_cat/allocation?v
 curl -X GET 'http://localhost:9200/_cat/indices?v'
 ```
 
-# Reference Links
+### Reference Links
 * [Elastic Site](https://www.elastic.co/)
 * [Elastic Downloads](https://www.elastic.co/downloads/)
 * [Elastic Elasticsearch](https://www.elastic.co/downloads/past-releases#elasticsearch)
