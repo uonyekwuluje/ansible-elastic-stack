@@ -27,7 +27,9 @@
   become_method: sudo
   roles:
   - role: common
+    when: ansible_distribution == 'CentOS' and (ansible_distribution_version == '6.4' or ansible_distribution_version == '7.7') or ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '18.04' or ansible_distribution_version == '20.04')
   - role: elasticsearch
+    when: ansible_distribution == 'CentOS' and (ansible_distribution_version == '6.4' or ansible_distribution_version == '7.7') or ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '18.04' or ansible_distribution_version == '20.04')
 
 - name: Install Kibana Server
   hosts: kibana
@@ -36,7 +38,9 @@
   become_method: sudo
   roles:
   - role: common
+    when: ansible_distribution == 'CentOS' and (ansible_distribution_version == '6.4' or ansible_distribution_version == '7.7') or ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '18.04' or ansible_distribution_version == '20.04')
   - role: kibana
+    when: ansible_distribution == 'CentOS' and (ansible_distribution_version == '6.4' or ansible_distribution_version == '7.7') or ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '18.04' or ansible_distribution_version == '20.04') 
 
 - name: Configure Filebeat Test Nodes
   hosts: testnodes
@@ -46,4 +50,6 @@
   become_method: sudo
   roles:
   - role: common
+    when: ansible_distribution == 'CentOS' and (ansible_distribution_version == '6.4' or ansible_distribution_version == '7.7') or ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '18.04' or ansible_distribution_version == '20.04')
   - role: filebeats
+    when: ansible_distribution == 'CentOS' and (ansible_distribution_version == '6.4' or ansible_distribution_version == '7.7') or ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '18.04' or ansible_distribution_version == '20.04')
