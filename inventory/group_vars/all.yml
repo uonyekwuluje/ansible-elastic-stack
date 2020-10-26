@@ -4,7 +4,7 @@ epel_repo_gpg_key_url: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distributio
 epel_repofile_path: "/etc/yum.repos.d/epel.repo"
 htpasswd_file: "/etc/nginx/conf.d/.htpasswd"
 
-elastic_version: "7.8.1"
+elastic_version: "7.9.3"
 elasticsearch_rpm_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elastic_version }}-x86_64.rpm"
 kibana_rpm_url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ elastic_version }}-x86_64.rpm"
 filebeat_rpm_url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{ elastic_version }}-x86_64.rpm"
