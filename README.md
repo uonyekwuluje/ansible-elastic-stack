@@ -1,4 +1,4 @@
-# Ansible Elastic Stack | Version 7.8.1
+# Ansible Elastic Stack | Version 7.9.3
 This Ansible Repo installs Elasticsearch, Kibana and FileBeats. More to Come
 
 ### Supported Distributions
