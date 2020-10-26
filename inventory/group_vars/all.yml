@@ -13,6 +13,6 @@ elasticsearch_deb_url: "https://artifacts.elastic.co/downloads/elasticsearch/ela
 kibana_deb_url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ elastic_version }}-amd64.deb"
 filebeat_deb_url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{ elastic_version }}-amd64.deb"
 
-cluster_name: "elkdevcls1"
-elastic_stack_cluster: ["kibanaserver", "elasticnode-1", "elasticnode-2", "elasticnode-3"]
+cluster_name: "elkdevclus1"
+elastic_stack_cluster: ["kibanaserver", "elknode-01", "elknode-02", "elknode-03"]
 kibana_server_address: "kibanaserver"
