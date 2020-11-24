@@ -1,4 +1,4 @@
-# Ansible Elastic Stack | Version 7.9.3
+# Ansible Elastic Stack | Version 7.10.0
 This Ansible Repo installs Elasticsearch, Kibana and FileBeats. More to Come
 
 ### Supported Distributions
@@ -18,23 +18,25 @@ This Ansible Repo installs Elasticsearch, Kibana and FileBeats. More to Come
 * Update inventory/hosts.ini with the server names
 * Update ansible_users in ansible.cfg. Ensure this user has sudo privilleges
 
-### Server Inventory
+### Multi Node ELK Inventory
 |Server Name  |  Ip Address |
 |-------------|-------------|
 |kibanaserver |  10.0.0.4   |
 |elknode-01   |  10.0.1.4   |
 |elknode-02   |  10.0.1.5   |
 |elknode-03   |  10.0.1.6   |
-|testnode-01  |  10.0.1.7   |
-|testnode-02  |  10.0.1.8   |
-
 
 ### Setup Multi Node
 ```
 ansible -m ping elasticstack -o
-ansible -u centos -m shell -a "sudo reboot" elasticstack -v -o
+ansible -m shell -a "sudo reboot" elasticstack -v -o
 ansible-playbook main.yml
 ```
+
+### Single Node ELK 
+|Server Name  |  Ip Address |
+|-------------|-------------|
+|elkserver    |  10.0.0.9   |
 
 ### Setup Single Node
 ```

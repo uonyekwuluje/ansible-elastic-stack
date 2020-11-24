@@ -1,9 +1,9 @@
 cluster.name: {{ cluster_name }}
 node.name: {{ inventory_hostname }}
 network.host: 0.0.0.0
-node.master: false
-node.data: false
-node.ingest: false
+node.master: true
+node.data: true
+node.ingest: true
 path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
 gateway.recover_after_nodes: 2
