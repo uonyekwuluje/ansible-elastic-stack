@@ -1,0 +1,11 @@
+cluster.name: <%= @cluster_name %>
+node.name: <%= @hostname %>
+network.host: 0.0.0.0
+node.master: true
+node.data: true
+node.ingest: true
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+gateway.recover_after_nodes: 2
+discovery.seed_hosts: <%= @elastic_servers %>
+cluster.initial_master_nodes: <%= @elastic_servers %>

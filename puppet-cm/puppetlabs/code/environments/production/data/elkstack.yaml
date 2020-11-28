@@ -1,0 +1,6 @@
+kibana_url: "https://artifacts.elastic.co/downloads/kibana/kibana-7.10.0-x86_64.rpm"
+elasticsearch_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.0-x86_64.rpm"
+kibana::server::kibana_url: "https://artifacts.elastic.co/downloads/kibana/kibana-7.10.0-x86_64.rpm"
+elasticsearch::server::elasticsearch_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.0-x86_64.rpm"
+elastic_server_stack: [ 'kibanaserver', 'elasticnode01', 'elasticnode02', 'elasticnode03' ]
+elasticsearch_cluster_name: "POCELKCLUSTER"
