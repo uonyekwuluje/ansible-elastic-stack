@@ -3,6 +3,7 @@
   yum:
      name: "{{ elasticsearch_rpm_url }}"
      state: present
+     disable_gpg_check: True
   when:
   - ansible_os_family == 'RedHat'
 

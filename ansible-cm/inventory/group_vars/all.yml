@@ -1,9 +1,4 @@
 ---
-epel_repo_url: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
-epel_repo_gpg_key_url: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
-epel_repofile_path: "/etc/yum.repos.d/epel.repo"
-htpasswd_file: "/etc/nginx/conf.d/.htpasswd"
-
 elastic_version: "7.10.0"
 elasticsearch_rpm_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elastic_version }}-x86_64.rpm"
 kibana_rpm_url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ elastic_version }}-x86_64.rpm"
@@ -13,6 +8,6 @@ elasticsearch_deb_url: "https://artifacts.elastic.co/downloads/elasticsearch/ela
 kibana_deb_url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ elastic_version }}-amd64.deb"
 filebeat_deb_url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{ elastic_version }}-amd64.deb"
 
-cluster_name: "elkdevclus1"
-elastic_stack_cluster: ["kibanaserver", "elknode-01", "elknode-02", "elknode-03"]
+cluster_name: "DEVCLUSTER"
+elastic_stack_cluster: ["kibanaserver", "elasticnode01", "elasticnode02", "elasticnode03"]
 kibana_server_address: "kibanaserver"
