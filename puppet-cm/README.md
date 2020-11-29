@@ -12,7 +12,7 @@ On the affected agents
 * run ```sudo /opt/puppetlabs/bin/puppet agent --test``` to deploy/update
   - Perform a dry run ```sudo /opt/puppetlabs/bin/puppet agent --test --noop```
   - Perform a dry run in specific environment ```sudo /opt/puppetlabs/bin/puppet agent --environment=testing --test --noop```
-
+  - Lookup Haira ```puppet lookup kibana::server::kibana_url``` or ```puppet lookup kibana_url```
 
 
 # References
