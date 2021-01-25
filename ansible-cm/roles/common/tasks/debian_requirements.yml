@@ -15,7 +15,7 @@
       - libncurses5-dev
   become: true
 
-- name: Installing Ubuntu ELK Dependencies
+- name: Installing Ubuntu Dependencies
   apt:
     name: "{{ packages }}"
   vars:

@@ -36,3 +36,9 @@ ansible -m ping cassandraone -o
 ansible -m shell -a "sudo reboot" cassandraone -v -o
 ansible-playbook playbook/cassandra/cassandra-one.yml
 ```
+
+### Test POC Server
+```
+ansible -m ping pocservers -o
+ansible-playbook playbook/pocservers/main.yml
+```
