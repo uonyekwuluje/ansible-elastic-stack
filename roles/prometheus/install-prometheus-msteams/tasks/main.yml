@@ -1,0 +1,51 @@
+---
+# Install Prometheus MSTeams
+- name: Create | Directory.
+  stat:
+     path: "{{ prometheus_msteams_path }}"
+  register: prometheusmsteams_path
+ 
+- name: "Ansible Create directory if not exists"
+  file:
+     path: "{{ prometheus_msteams_path }}"
+     state: directory
+     mode: 0755
+     group: root
+     owner: root
+  when: prometheusmsteams_path.stat.exists == false
+
+- name: Download | Prometheus MSTeams Executable
+  get_url:
+    url: "{{ prometheus_msteams_url }}"
+    dest: "/usr/local/bin/{{ prometheus_msteams_name }}"
+    mode: 0755
+    remote_src: true
+  become: true 
+
+- name: Download | Prometheus MSTeams Template
+  copy:
+    src: "default-message-card.tmpl"
+    dest: "{{ prometheus_msteams_path }}/{{ prometheus_msteams_template_name }}"
+  become: true
+
+- name: Copy | Prometheus MSTeams Service
+  template:
+    src: "prometheus_msteams.service.j2"
+    dest: "/etc/systemd/system/prometheus_msteams.service"
+  become: true
+
+- name: Copy | MSTeams Template
+  template:
+    src: "config.yml.j2"
+    dest: "{{ prometheus_msteams_path }}/config.yml"
+  become: true
+
+- name: Reload
+  shell: sudo systemctl daemon-reload
+  become: true
+
+- name: Service | Enable Prometheus MSTeams
+  systemd:
+    name: prometheus_msteams
+    enabled: yes
+    state: restarted

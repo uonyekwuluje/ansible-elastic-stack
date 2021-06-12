@@ -1,0 +1,24 @@
+---
+- name: Empty Play for test nodes facts
+  hosts: prom_stack
+  gather_facts: true
+  become: yes
+
+- name: Configure Prometheus Server
+  hosts: prom_master
+  gather_facts: true
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars_files:
+    - "../../inventory/group_vars/all.yml"
+    - "../../inventory/group_vars/users.yml"
+  roles:
+  - role: sys-common
+  - role: prometheus/user
+  - role: prometheus/system
+  - role: prometheus/prometheus-install
+  #- role: prometheus/grafana
+  #- role: prometheus/install-alertmanager
+  #- role: prometheus/install-blackboxexporter
+  #- role: prometheus/install-prometheus-msteams

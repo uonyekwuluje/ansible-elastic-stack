@@ -1,0 +1,9 @@
+---
+prometheus_user:
+  - username: prometheus
+    user_group: prometheus
+    gekos: "Prometheus User"
+    user_home: "/home/prometheus"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "prometheus"

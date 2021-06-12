@@ -1,8 +1,0 @@
-cluster.name: {{ cluster_name }}
-node.name: {{ inventory_hostname }}
-network.host: 0.0.0.0
-http.port: 9200
-path.data: /var/lib/elasticsearch
-path.logs: /var/log/elasticsearch
-discovery.seed_hosts: [{{ inventory_hostname }}]
-cluster.initial_master_nodes: [{{ inventory_hostname }}]

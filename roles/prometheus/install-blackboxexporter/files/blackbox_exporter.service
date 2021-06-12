@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus Blackbox_Exporter for prometheus
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+LimitNOFILE=65536
+ExecStart=/usr/local/bin/blackbox_exporter --config.file /etc/blackbox_exporter/blackbox.yml
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,111 @@
+# Install Prometheus
+- name: Download | Prometheus
+  unarchive:
+    src: "{{ prometheus_url }}"
+    dest: "/tmp/"
+    remote_src: yes
+  become: True
+
+- name: Copy | Prometheus Executables
+  copy:
+    src: "/tmp/{{ prometheus_extract_folder }}/prometheus"
+    dest: "/usr/local/bin/"
+    mode: 0755
+    remote_src: true
+  become: true 
+
+
+- name: Copy | Promtool Executables
+  copy:
+    src: "/tmp/{{ prometheus_extract_folder }}/promtool"
+    dest: "/usr/local/bin/"
+    remote_src: true
+    mode: 0755
+  become: true 
+
+
+- name: Copy | Consoles
+  copy:
+    src: "/tmp/{{ prometheus_extract_folder }}/consoles"
+    dest: "{{ etc_conf_dir }}"
+    remote_src: True
+  become: true 
+
+- name: Copy | Console_libraries
+  copy:
+    src: "/tmp/{{ prometheus_extract_folder }}/console_libraries"
+    dest: "{{ etc_conf_dir }}"
+    remote_src: True
+  become: true 
+
+- name: Copy | Alert Rules
+  copy:
+    src: "alert.rules"
+    dest: "{{ etc_conf_dir }}"
+  become: true
+
+
+- name: Copy | Prometheus Config Template
+  template: 
+    src: "dynamic-prometheus.yml.j2" 
+    dest: "{{ etc_conf_dir }}/prometheus.yml"
+  become: true
+
+- name: Copy | Prometheus Service
+  copy:
+    src: "prometheus.service"
+    dest: "/etc/systemd/system/"
+  become: true
+
+
+- name: Update | Update Permissions {{ etc_conf_dir }}
+  file:
+    dest: "{{ etc_conf_dir }}"
+    owner: "{{ item.username }}"
+    group: "{{ item.user_group }}"
+    mode: "u=rwX,g=rX,o=rX"
+    recurse: yes
+  become: true
+  with_items: "{{prometheus_user}}"
+
+
+- name: Update | Update Permissions {{ var_conf_dir }}
+  file:
+    dest: "{{ var_conf_dir }}"
+    owner: "{{ item.username }}"
+    group: "{{ item.user_group }}"
+    mode: "u=rwX,g=rX,o=rX"
+    recurse: yes
+  become: true
+  with_items: "{{prometheus_user}}"
+
+
+- name: Update | Update Permissions Prometheus Service
+  file:
+    dest: "/usr/local/bin/prometheus"
+    owner: "{{ item.username }}"
+    group: "{{ item.user_group }}"
+    mode: "u=rwX,g=rX,o=rX"
+  become: true
+  with_items: "{{prometheus_user}}"
+
+
+- name: Update | Update Permissions Prometheus Tool
+  file:
+    dest: "/usr/local/bin/promtool"
+    owner: "{{ item.username }}"
+    group: "{{ item.user_group }}"
+    mode: "u=rwX,g=rX,o=rX"
+  become: true
+  with_items: "{{prometheus_user}}"
+
+- name: Reload
+  shell: sudo systemctl daemon-reload
+  become: true
+
+- name: Service | Enable Prometheus
+  systemd:
+    name: prometheus
+    enabled: yes
+    state: restarted
+    daemon_reload: yes

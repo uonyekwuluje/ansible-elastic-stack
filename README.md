@@ -1,2 +1,7 @@
-# Configuration Management
-This is a collection of roles and modules in various configuration management tools
+# Ansible Prometheus
+Ansible Prometheus Configs
+
+## Test Stack
+```
+ansible -m ping prom_stack -v -o
+```

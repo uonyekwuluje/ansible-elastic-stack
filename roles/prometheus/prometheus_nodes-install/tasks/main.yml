@@ -1,0 +1,31 @@
+# Install Node Exporter
+- name: Download | Node Exporter
+  unarchive:
+    src: "{{ node_exporter_url }}"
+    dest: "/tmp/"
+    remote_src: yes
+  become: True
+
+- name: Copy | Node Exporter Executables
+  copy:
+    src: "/tmp/{{ node_exporter_extract_folder }}/node_exporter"
+    dest: "/usr/local/bin/"
+    mode: 0755
+    remote_src: true
+  become: true 
+
+- name: Copy | Node Exporter Service
+  copy:
+    src: "node_exporter.service"
+    dest: "/etc/systemd/system/"
+  become: true
+
+- name: Reload
+  shell: sudo systemctl daemon-reload
+  become: true
+
+- name: Service | Enable Node Exporter
+  systemd:
+    name: node_exporter
+    enabled: yes
+    state: restarted

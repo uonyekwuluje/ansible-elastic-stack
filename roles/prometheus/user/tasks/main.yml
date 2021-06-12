@@ -1,0 +1,47 @@
+---
+- name: Create Prometheus group
+  group: name={{ item.user_group }} state=present
+  with_items: '{{prometheus_user}}'
+
+- name: Create Prometheus Home
+  file:
+      path: "{{ item.user_home }}"
+      state: directory
+  with_items: '{{prometheus_user}}'
+
+- name: Create Prometheus user, shell, home dirs
+  user: 
+      name: "{{ item.username }}" 
+      shell: "{{ item.user_shell }}"
+      group: "{{ item.user_group }}" 
+      groups: "{{ item.user_groups }}" 
+      comment: "{{ item.gekos }}" 
+      home: "{{ item.user_home }}"
+  with_items: '{{prometheus_user}}'
+
+- name: Update Prometheus Home Permissions
+  file:
+      path: "{{ item.user_home }}"
+      recurse: yes
+      owner: "{{ item.username }}"
+      group: "{{ item.user_group }}"
+      mode: "0755"
+  with_items: "{{prometheus_user}}"
+
+- name: Update sudoers file and validate
+  lineinfile: 
+      destfile: /etc/sudoers
+      insertafter: EOF
+      line: '{{ item.username }} ALL=(ALL) NOPASSWD: ALL'
+      regexp: '^{{ item.username }} .*'
+      state: present
+  with_items: "{{prometheus_user}}"
+
+- name: Create Prometheus SSH Directory
+  file:
+     path: "/home/{{ item.username }}/.ssh"
+     state: directory
+     owner: "{{ item.username }}"
+     group: "{{ item.user_group }}"
+     mode: "0700"
+  with_items: '{{prometheus_user}}'

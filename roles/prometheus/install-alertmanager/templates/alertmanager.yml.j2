@@ -1,0 +1,46 @@
+global:
+  resolve_timeout: 5m
+  smtp_hello: 'infracid.com'
+  smtp_from: 'ucheonyekwuluje@outlook.com'
+  smtp_require_tls: true
+  smtp_smarthost: 'smtp.sendgrid.net:587'
+  smtp_auth_username: 'apikey'
+  smtp_auth_password: '{{ sendgrid_api_key }}'
+  smtp_auth_secret: '{{ sendgrid_api_key }}'
+  pagerduty_url: 'https://events.pagerduty.com/v2/enqueue'
+
+route:
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'email-notifications'
+  routes:
+    - match:
+        severity: critical
+      repeat_interval: 1m
+      continue: true
+      receiver: 'pagerduty-notifications'
+    - match:
+        severity: warning
+      repeat_interval: 2m
+      continue: true
+      receiver: 'prometheus-msteams'
+    - match:
+        severity: info
+      repeat_interval: 3m
+      continue: true
+      receiver: 'email-notifications'
+
+
+receivers:
+  - name: 'email-notifications'
+    email_configs:
+      - to: "uionyekwuluje@gmail.com"
+        send_resolved: true
+  - name: 'prometheus-msteams'
+    webhook_configs:
+      - url: "http://localhost:2000/high_priority_channel"
+        send_resolved: true
+  - name: 'pagerduty-notifications'
+    pagerduty_configs:
+      - service_key: "{{ prometheus_pagerduty_integration_key }}"

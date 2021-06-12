@@ -1,0 +1,64 @@
+---
+- name: Update | Update all packages
+  yum:
+     name: '*'
+     state: present
+  become: true
+
+- name: Install Dev Tools |  'Development tools' package group
+  yum:
+    name: "@Development tools"
+  become: true
+
+- name: Install | Base packages
+  yum:
+    name:
+      - gnupg2
+      - git
+      - pyOpenSSL
+      - vim
+      - wget
+      - telnet
+      - libxml2 
+      - libxml2-devel 
+      - libxslt 
+      - libxslt-devel 
+      - bzip2 
+      - gcc 
+      - libffi-devel 
+      - libyaml-devel
+      - readline-devel
+      - zlib-devel
+      - openssl-devel 
+      - make 
+      - openssl-devel 
+      - bzip2-devel
+  become: true    
+
+- name: Install | JAVA Packages
+  yum:
+    name:
+      - java-11-openjdk-devel
+      - java-11-openjdk
+  become: true
+
+- name: Be sure firewalld is disabled
+  systemd:
+    name: firewalld
+    enabled: no
+  become: true
+  ignore_errors: yes
+
+- name: Be sure firewalld is stopped
+  systemd:
+    name: firewalld
+    state: stopped
+  become: true
+  ignore_errors: yes
+
+- name: Disable Selinux
+  selinux:
+    policy: targeted
+    state: disabled
+  become: true
+  ignore_errors: yes
