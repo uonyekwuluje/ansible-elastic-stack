@@ -36,30 +36,3 @@ groups:
     annotations:
       summary: "Server memory is almost full"
       description: "{{ $labels.instance }} memory usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
-
-  - alert: Webserver_Status
-    expr: probe_http_status_code <= 0
-    for: 80s
-    labels:
-      severity: warning
-    annotations:
-      summary: "Web Server Down"
-      description: "The webserver on {{ $labels.instance }} is down"
-
-  - alert: Testing_Consul_Alert_Notification
-    expr: consul_health_service_status{status="critical"} == 1
-    for: 80s
-    labels:
-      severity: critical
-    annotations:
-      summary: "Service Down in {{ $labels.node }}"
-      description: "One or more sv service(s) is down or has issues in {{ $labels.node }}. Please, login and check the app service status"
-
-#  - alert: Webserver_Status_500x
-#    expr: probe_http_status_code > 400
-#    for: 80s
-#    labels:
-#      severity: critical
-#    annotations:
-#      summary: "Web Server Down. Resource not reachable"
-#      description: "The webserver on {{ $labels.instance }} is down and not reachable"

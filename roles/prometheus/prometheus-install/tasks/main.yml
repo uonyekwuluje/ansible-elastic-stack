@@ -14,7 +14,6 @@
     remote_src: true
   become: true 
 
-
 - name: Copy | Promtool Executables
   copy:
     src: "/tmp/{{ prometheus_extract_folder }}/promtool"
@@ -22,7 +21,6 @@
     remote_src: true
     mode: 0755
   become: true 
-
 
 - name: Copy | Consoles
   copy:
@@ -47,7 +45,7 @@
 
 - name: Copy | Prometheus Config Template
   template: 
-    src: "dynamic-prometheus.yml.j2" 
+    src: "static-prometheus.yml.j2" 
     dest: "{{ etc_conf_dir }}/prometheus.yml"
   become: true
 

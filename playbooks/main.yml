@@ -1,0 +1,4 @@
+---
+- import_playbook: common-install.yml
+- import_playbook: prometheus-install.yml
+- import_playbook: nodes-install.yml

@@ -1,0 +1,11 @@
+---
+- name: Configure Prometheus Server
+  hosts: prom_master
+  gather_facts: true
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+  - role: prometheus/user
+  - role: prometheus/system
+  - role: prometheus/prometheus-install

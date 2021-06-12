@@ -13,7 +13,7 @@
   vars:
     packages:
       - git
-      - python-pip
+      - python3-pip
       - python-apt 
       - openjdk-8-jdk
       - libfontconfig

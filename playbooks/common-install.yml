@@ -1,0 +1,9 @@
+---
+- name: Install Common Components 
+  hosts: prom_stack
+  gather_facts: true
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+  - role: sys-common
